@@ -69,7 +69,7 @@ class PublicKeyTests: XCTestCase {
     }
     
     func test_publicKeysFromComplexPEMFileWorksCorrectly() {
-        let input = TestUtils.pemKeyString(name: "multiple-keys-testcase")
+        let input = TestUtils.pemKeyString("multiple-keys-testcase")
         let keys = PublicKey.publicKeys(pemEncoded: input)
         XCTAssertEqual(keys.count, 9)
     }
@@ -80,7 +80,7 @@ class PublicKeyTests: XCTestCase {
     }
     
     func test_publicKeysFromPrivateKeyPEMFileReturnsEmptyArray() {
-        let input = TestUtils.pemKeyString(name: "swiftyrsa-private")
+        let input = TestUtils.pemKeyString("swiftyrsa-private")
         let keys = PublicKey.publicKeys(pemEncoded: input)
         XCTAssertEqual(keys.count, 0)
     }

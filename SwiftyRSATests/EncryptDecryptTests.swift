@@ -11,8 +11,8 @@ import SwiftyRSA
 
 class EncryptDecryptTests: XCTestCase {
     
-    let publicKey = try! TestUtils.publicKey(name: "swiftyrsa-public") // swiftlint:disable:this force_try
-    let privateKey = try! TestUtils.privateKey(name: "swiftyrsa-private") // swiftlint:disable:this force_try
+    let publicKey = try! TestUtils.publicKey("swiftyrsa-public") // swiftlint:disable:this force_try
+    let privateKey = try! TestUtils.privateKey("swiftyrsa-private") // swiftlint:disable:this force_try
     
     func test_simple() throws {
         let str = "Clear Text"
@@ -21,7 +21,7 @@ class EncryptDecryptTests: XCTestCase {
         let encrypted = try clearMessage.encrypted(with: publicKey, padding: .PKCS1)
         let decrypted = try encrypted.decrypted(with: privateKey, padding: .PKCS1)
         
-        XCTAssertEqual(try? decrypted.string(encoding: .utf8), str)
+        XCTAssertEqual(try? decrypted.string(.utf8), str)
     }
     
     func test_longString() throws {
@@ -31,11 +31,11 @@ class EncryptDecryptTests: XCTestCase {
         let encrypted = try clearMessage.encrypted(with: publicKey, padding: .PKCS1)
         let decrypted = try encrypted.decrypted(with: privateKey, padding: .PKCS1)
         
-        XCTAssertEqual(try? decrypted.string(encoding: .utf8), str)
+        XCTAssertEqual(try? decrypted.string(.utf8), str)
     }
     
     func test_randomBytes() throws {
-        let data = TestUtils.randomData(count: 2048)
+        let data = TestUtils.randomData(2048)
         let clearMessage = ClearMessage(data: data)
         
         let encrypted = try clearMessage.encrypted(with: publicKey, padding: .PKCS1)
@@ -45,7 +45,7 @@ class EncryptDecryptTests: XCTestCase {
     }
     
     func test_noPadding() throws {
-        let data = TestUtils.randomData(count: 128)
+        let data = TestUtils.randomData(128)
         let clearMessage = ClearMessage(data: data)
         let encrypted = try clearMessage.encrypted(with: publicKey, padding: [])
         

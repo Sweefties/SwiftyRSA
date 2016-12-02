@@ -22,7 +22,7 @@
  * The actual unit tests are done in Swift in the same target.
  */
 - (void)test_smoke {
-    NSData* data = [TestUtils randomDataWithCount:128];
+    NSData* data = [TestUtils randomData:128];
     
     PublicKey* pub;
     pub = [[PublicKey alloc] initWithData:data error:nil];
@@ -53,8 +53,8 @@
     encrypted = [[EncryptedMessage alloc] initWithData:data];
     
     {
-        PublicKey* publicKey = [TestUtils publicKeyWithName:@"swiftyrsa-public" error:nil];
-        PrivateKey* privateKey = [TestUtils privateKeyWithName:@"swiftyrsa-private" error:nil];
+        PublicKey* publicKey = [TestUtils publicKey:@"swiftyrsa-public" error:nil];
+        PrivateKey* privateKey = [TestUtils privateKey:@"swiftyrsa-private" error:nil];
         Signature* signature = [[Signature alloc] initWithData:data];
         ClearMessage* clearMessage = [[ClearMessage alloc] initWithData:data];
         [clearMessage data];
@@ -65,7 +65,7 @@
     }
     
     {
-        PrivateKey* privateKey = [TestUtils privateKeyWithName:@"swiftyrsa-private" error:nil];
+        PrivateKey* privateKey = [TestUtils privateKey:@"swiftyrsa-private" error:nil];
         EncryptedMessage* encryptedMessage = [[EncryptedMessage alloc] initWithData:data];
         [encryptedMessage data];
         [encryptedMessage base64String];
